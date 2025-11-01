@@ -7,6 +7,8 @@ import sys
 import keyboard
 from pynput.keyboard import Key, Controller
 
+
+# Teste
 # -----------------------------------------------------------------------------
 # VARIÁVEIS GLOBAIS E DE CONTROLE
 # -----------------------------------------------------------------------------
