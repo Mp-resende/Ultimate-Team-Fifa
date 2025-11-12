@@ -34,32 +34,38 @@ def abrir_pacotes_funcao():
 
     if stop_event.is_set(): return
     time.sleep(1.5)
-    print("Procurando 'SendToClub' ou 'levemeparala'...")
-    SendToClub = pgui.locateCenterOnScreen("SendToClub.png", confidence=0.9)
-    clicar_levemeparala = pgui.locateCenterOnScreen("levemeparala.png", confidence=0.9) if not SendToClub else None
+    print("Procurando Organizar não atribuído...")
+    OrganizarNaoAtribuido = pgui.locateCenterOnScreen("organizarNaoAtt.png", confidence=0.9)
+    clicar_levemeparala = pgui.locateCenterOnScreen("levemeparala.png", confidence=0.9) if not OrganizarNaoAtribuido else None
     
-    if SendToClub: pgui.click(SendToClub, duration=0.5); print("Clicou em 'SendToClub.png'.")
-    elif clicar_levemeparala: pgui.click(clicar_levemeparala, duration=0.5); print("Clicou em 'levemeparala.png'.")
-    else: print("AVISO: 'SendToClub' ou 'levemeparala' não encontrados.")
+    if OrganizarNaoAtribuido: pgui.click(OrganizarNaoAtribuido, duration=0.5); print("Clicou em 'organizarNaoAtt.png'.")
+    elif clicar_levemeparala: 
+        pgui.click(clicar_levemeparala, duration=0.5); 
+        print("Clicou em 'levemeparala.png'."); 
+        time.sleep(1) 
+        if OrganizarNaoAtribuido: 
+            pgui.click(OrganizarNaoAtribuido, duration=0.5); 
+            print("Clicou em 'organizarNaoAtt.png'.")
+        else: print("AVISO: 'SendToClub' ou 'levemeparala' não encontrados.")
+
+    # if stop_event.is_set(): return
+    # time.sleep(1.5)
+    # print("Procurando 'OrganizarNaoAttt.png' novamente...")
+    # # OrganizarNaoAtribuido = pgui.locateCenterOnScreen("organizarNaoAtt.png", confidence=0.9)
+    # # if OrganizarNaoAtribuido: pgui.click(OrganizarNaoAtribuido, duration=0.5); print("Clicou em 'organizarNaoAtt.png' (2ª vez).")
+    # else: print("AVISO: Imagem 'organizarNaoAtt.png' (2ª vez) não encontrada!")
+
+    # if stop_event.is_set(): return
+    # time.sleep(1.5)
+    # print("Procurando 'enviar_armazem.png'...")
+    # enviar_armazem = pgui.locateCenterOnScreen("enviar_armazem.png", confidence=0.9)
+    # if enviar_armazem: pgui.click(enviar_armazem); print("Clicou em 'enviar_armazem.png'.")
+    # else: print("AVISO: Imagem 'enviar_armazem.png' não encontrada!")
 
     if stop_event.is_set(): return
-    time.sleep(1.5)
-    print("Procurando '3pontos.png' novamente...")
-    clicar3pontos_2 = pgui.locateCenterOnScreen("3pontos.png", confidence=0.9)
-    if clicar3pontos_2: pgui.click(clicar3pontos_2, duration=0.5); print("Clicou em '3pontos.png' (2ª vez).")
-    else: print("AVISO: Imagem '3pontos.png' (2ª vez) não encontrada!")
-
-    if stop_event.is_set(): return
-    time.sleep(1.5)
-    print("Procurando 'enviar_armazem.png'...")
-    enviar_armazem = pgui.locateCenterOnScreen("enviar_armazem.png", confidence=0.9)
-    if enviar_armazem: pgui.click(enviar_armazem); print("Clicou em 'enviar_armazem.png'.")
-    else: print("AVISO: Imagem 'enviar_armazem.png' não encontrada!")
-
-    if stop_event.is_set(): return
-    time.sleep(1)
+    time.sleep(2)
     print("Voltando para a loja...")
-    pgui.leftClick(x=143, y=184)
+    keyboard.press('1')
     time.sleep(1)
 
 def automation_loop_pacotes(quantidade, pausa_segundos):
@@ -136,7 +142,7 @@ def executar_dme_diario(slot):
         return
     time.sleep(2)
     keyboard.press('s')
-    time.sleep(1)
+    time.sleep(1.5)
     # (Restante do código comentado permanece igual)
 
 def automation_loop_dme_diario(quantidade, slot, pausa_segundos):
