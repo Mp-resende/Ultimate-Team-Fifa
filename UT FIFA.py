@@ -35,17 +35,22 @@ def abrir_pacotes_funcao():
     if stop_event.is_set(): return
     time.sleep(1.5)
     print("Procurando Organizar não atribuído...")
-    OrganizarNaoAtribuido = pgui.locateCenterOnScreen("organizarNaoAtt.png", confidence=0.9)
-    clicar_levemeparala = pgui.locateCenterOnScreen("levemeparala.png", confidence=0.9) if not OrganizarNaoAtribuido else None
+    OrganizarNaoAtribuido = pgui.locateCenterOnScreen("organizarNaoAtt.png", confidence=0.8)
+    OrganizarNaoAtribuido2 = pgui.locateCenterOnScreen("organizarNaoAtt2.png", confidence=0.8)
+    clicar_levemeparala = pgui.locateCenterOnScreen("levemeparala.png", confidence=0.9) 
+    if not OrganizarNaoAtribuido and not clicar_levemeparala:
+        print("AVISO: 'SendToClub' ou 'levemeparala' não encontrados.")
+        return
     
     if OrganizarNaoAtribuido: pgui.click(OrganizarNaoAtribuido, duration=0.5); print("Clicou em 'organizarNaoAtt.png'.")
     elif clicar_levemeparala: 
         pgui.click(clicar_levemeparala, duration=0.5); 
         print("Clicou em 'levemeparala.png'."); 
-        time.sleep(1) 
-        if OrganizarNaoAtribuido: 
-            pgui.click(OrganizarNaoAtribuido, duration=0.5); 
+        time.sleep(1.5) 
+        if OrganizarNaoAtribuido2: 
+            pgui.click(OrganizarNaoAtribuido2, duration=0.5); 
             print("Clicou em 'organizarNaoAtt.png'.")
+            time.sleep(1.5)
         else: print("AVISO: 'SendToClub' ou 'levemeparala' não encontrados.")
 
     # if stop_event.is_set(): return
@@ -63,7 +68,7 @@ def abrir_pacotes_funcao():
     # else: print("AVISO: Imagem 'enviar_armazem.png' não encontrada!")
 
     if stop_event.is_set(): return
-    time.sleep(2)
+    time.sleep(3)
     print("Voltando para a loja...")
     keyboard.press('1')
     time.sleep(1)
@@ -129,9 +134,20 @@ def executar_dme_diario(slot):
     pgui.leftClick(x=coordenadas[0], y=coordenadas[1])
     time.sleep(1)
     if stop_event.is_set(): return
+
+    irParaDesafio = pgui.locateCenterOnScreen("irParaDesafio.png", confidence=0.9)
+    comecarDesafio = pgui.locateCenterOnScreen("comecarDesafio.png", confidence=0.9)
+
+    if irParaDesafio or comecarDesafio: 
+        pgui.click(irParaDesafio)
+        pgui.click(comecarDesafio)
+        print("[DME DIÁRIO] Clicou em 'irParaDesafio.png'.")
+    else:
+        return
+
     print("[DME DIÁRIO] Procurando 'template.png'...")
-    time.sleep(1)
-    pgui.leftClick(x=149, y=270) # Clicar em autocomplete SBC
+    time.sleep(1.5)
+    keyboard.press('a') # Clicar em autocomplete SBC
     time.sleep(1)
     build = pgui.locateCenterOnScreen("build.png", confidence=0.9)
     if build:
